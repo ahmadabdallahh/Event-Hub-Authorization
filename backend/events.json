@@ -1,0 +1,103 @@
+{
+    "events": [
+        {
+            "title": "Test Element",
+            "image": "https://images.unsplash.com/photo-1596265371388-43edbaadab94?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "date": "2026-09-16",
+            "description": "Incidunt deserunt v",
+            "id": "adf38964-adf8-4f5e-b710-84e500a56245"
+        },
+        {
+            "title": "Test Element",
+            "image": "https://images.unsplash.com/photo-1596265371388-43edbaadab94?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "date": "2026-09-20",
+            "description": "Edit Element !!!!!\n",
+            "id": "045f817b-cb9c-4a63-a53d-96298ecb22fd"
+        },
+        {
+            "id": "e1",
+            "title": "A dummy event",
+            "date": "2023-02-22",
+            "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
+            "description": "Join this amazing event and connect with fellow developers."
+        },
+        {
+            "id": "e2",
+            "title": "React Router Conference 2026",
+            "date": "2026-03-12",
+            "image": "https://picsum.photos/id/0/600/400",
+            "description": "A full-day conference on client-side routing, data loading, and Rendering architecture."
+        },
+        {
+            "id": "e3",
+            "title": "TypeScript Deep Dive Workshop",
+            "date": "2026-04-05",
+            "image": "https://picsum.photos/id/1/600/400",
+            "description": "Hands-on workshop covering generics, advanced types, and real-world project setup."
+        },
+        {
+            "id": "e6",
+            "title": "Front-End Performance Day",
+            "date": "2026-07-09",
+            "image": "https://picsum.photos/id/180/600/400",
+            "description": "Measure and optimize bundle size, rendering, caching, and Core Web Vitals."
+        },
+        {
+            "id": "e7",
+            "title": "CSS Grid & Flexbox Masterclass",
+            "date": "2026-02-18",
+            "image": "https://picsum.photos/id/20/600/400",
+            "description": "Master modern layout techniques with practical projects and responsive design patterns."
+        },
+        {
+            "id": "e8",
+            "title": "Node.js Backend Bootcamp",
+            "date": "2026-05-22",
+            "image": "https://picsum.photos/id/26/600/400",
+            "description": "Build scalable REST APIs and GraphQL servers with Express and Node.js."
+        },
+        {
+            "id": "e9",
+            "title": "AI for Web Developers Summit",
+            "date": "2026-06-10",
+            "image": "https://picsum.photos/id/60/600/400",
+            "description": "Explore integrating AI-powered features into web apps using OpenAI APIs and embeddings."
+        },
+        {
+            "id": "e10",
+            "title": "Testing React Applications Workshop",
+            "date": "2026-08-15",
+            "image": "https://picsum.photos/id/96/600/400",
+            "description": "Unit, integration, and end-to-end testing with Vitest, Testing Library, and Playwright."
+        },
+        {
+            "id": "e11",
+            "title": "WebAssembly & Rust for the Web",
+            "date": "2026-09-03",
+            "image": "https://picsum.photos/id/119/600/400",
+            "description": "Compile Rust to WASM and run near-native performance code directly in the browser."
+        },
+        {
+            "id": "e12",
+            "title": "Design Systems at Scale",
+            "date": "2026-03-28",
+            "image": "https://picsum.photos/id/160/600/400",
+            "description": "Build and maintain a design system with tokens, components, and documentation using Storybook."
+        },
+        {
+            "id": "e15",
+            "title": "Full-Stack Redux Workshop",
+            "date": "2026-01-30",
+            "image": "https://picsum.photos/id/250/600/400",
+            "description": "State management with Redux Toolkit, RTK Query, and real-world patterns for large apps."
+        },
+        {
+            "id": "e16",
+            "title": "Accessibility & Inclusive Design",
+            "date": "2026-07-25",
+            "image": "https://picsum.photos/id/274/600/400",
+            "description": "WCAG 2.2 compliance, ARIA patterns, and building apps that work for everyone."
+        }
+    ],
+    "users": []
+}
