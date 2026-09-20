@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
@@ -6,6 +6,9 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
         : 'rounded-md px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-primary-300';
 
 function RootLayout() {
+    const location = useLocation();
+    const isLoginPage = location.pathname === '/login';
+
     return (
         <div className="min-h-dvh bg-gray-900 text-gray-100">
             <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-900/90 backdrop-blur">
@@ -37,10 +40,11 @@ function RootLayout() {
                         </li>
 
                         <li>
-                            <NavLink to="/login" end className={linkClass}>
-                                Login
+                            <NavLink to={isLoginPage ? "/register" : "/login"} end className={linkClass}>
+                                {isLoginPage ? "Register" : "Sign in"}
                             </NavLink>
                         </li>
+
                     </ul>
                 </nav>
             </header>
