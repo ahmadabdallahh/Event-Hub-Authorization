@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "react-router-dom";
 import EventItem from "../components/EventItem";
-import type { EventType } from "../utils/fetchOneEvent";
+import type { EventType } from "../utils/events functions/fetchOneEvent";
 
 const EventDetailPage = () => {
     const event = useLoaderData() as EventType;

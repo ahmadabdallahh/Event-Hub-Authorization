@@ -1,28 +1,21 @@
 // INFO: This is a simplified version of the fetchOneEvent function
 
-import type { LoaderFunctionArgs } from "react-router-dom";
+import { redirect, type LoaderFunctionArgs } from "react-router-dom";
+import { EVENTS_API_URL } from "../api";
 
-export type EventType = {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    image: string;
-};
+const BASE_URL = EVENTS_API_URL;
 
-const BASE_URL = import.meta.env.API_URL ?? 'http://localhost:8080/events/';
-
-export async function fetchOneEvent({ params }: LoaderFunctionArgs): Promise<EventType> {
+export async function deleteItemAction({ params }: LoaderFunctionArgs) {
     const { id } = params;
 
     if (!id) {
         throw new Response("Event ID is required", { status: 400 });
     }
 
-    const response = await fetch(`${BASE_URL}${id}`);
+    const response = await fetch(`${BASE_URL}${id}`, { method: "DELETE", headers: { "Content-Type": "application/json" } });
 
     if (!response.ok) {
-        let message = 'Failed to fetch event';
+        let message = 'Failed to delete event';
         try {
             const errorData = await response.json();
             if (typeof errorData?.message === 'string' && errorData.message) {
@@ -34,7 +27,5 @@ export async function fetchOneEvent({ params }: LoaderFunctionArgs): Promise<Eve
         throw new Response(message, { status: response.status });
     }
 
-    const data = await response.json();
-
-    return data.event;
+    return redirect("/events");
 }

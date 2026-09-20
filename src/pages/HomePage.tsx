@@ -4,12 +4,12 @@ const steps = [
     {
         title: 'Browse Events',
         description: 'A loader fetches the latest events from the Express API on page load.',
-        tag: 'GET /events',
+        tag: 'GET /api/v1/events',
     },
     {
         title: 'View Details',
         description: 'Click any event and a route loader pulls that single record by id.',
-        tag: 'GET /events/:id',
+        tag: 'GET /api/v1/events/:id',
     },
     {
         title: 'Create & Edit',
@@ -27,7 +27,7 @@ const layers = [
     {
         title: 'API Boundary',
         description: 'All data goes through a single fetch layer pointed at the deployed backend.',
-        items: ['VITE_API_URL → http://localhost:8080/events/'],
+        items: ['VITE_API_URL → http://localhost:8080/api/v1'],
     },
     {
         title: 'Express Server',

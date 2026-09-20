@@ -8,6 +8,11 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
 function RootLayout() {
     const location = useLocation();
     const isLoginPage = location.pathname === '/login';
+    const isAuthPage = isLoginPage || location.pathname === '/register';
+
+    const authLinkClass = isAuthPage
+        ? 'rounded-md bg-primary-500 px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-primary-400'
+        : 'rounded-md px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-primary-300';
 
     return (
         <div className="min-h-dvh bg-gray-900 text-gray-100">
@@ -40,9 +45,9 @@ function RootLayout() {
                         </li>
 
                         <li>
-                            <NavLink to={isLoginPage ? "/register" : "/login"} end className={linkClass}>
+                            <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
                                 {isLoginPage ? "Register" : "Sign in"}
-                            </NavLink>
+                            </Link>
                         </li>
 
                     </ul>

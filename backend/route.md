@@ -1,15 +1,15 @@
 # API Routes
 
-Base URL: `http://localhost:8080`
+Base URL: `http://localhost:8080/api/v1`
 
-## Auth Routes (`/`)
+## Auth Routes (`/api/v1/auth`)
 
-| Method | Path    | Auth Required | Description                    |
-| ------ | ------- | ------------- | ------------------------------ |
-| POST   | /signup | No            | Create a new user account      |
-| POST   | /login  | No            | Log in and receive a JWT token |
+| Method | Path               | Auth Required | Description                    |
+| ------ | ------------------ | ------------- | ------------------------------ |
+| POST   | /api/v1/auth/signup | No            | Create a new user account      |
+| POST   | /api/v1/auth/login  | No            | Log in and receive a JWT token |
 
-### POST /signup
+### POST /api/v1/auth/signup
 
 Request body:
 
@@ -25,7 +25,7 @@ Responses:
 - `201`: `{ "message": "User created.", "user": { ... }, "token": "<jwt>" }`
 - `422`: Validation errors (invalid email, email already exists, password less than 6 characters)
 
-### POST /login
+### POST /api/v1/auth/login
 
 Request body:
 
@@ -42,15 +42,15 @@ Responses:
 - `401`: `{ "message": "Authentication failed." }`
 - `422`: `{ "message": "Invalid credentials.", "errors": { "credentials": "Invalid email or password entered." } }`
 
-## Event Routes (`/events`)
+## Event Routes (`/api/v1/events`)
 
-| Method | Path     | Auth Required | Description                          |
-| ------ | -------- | ------------- | ------------------------------------ |
-| GET    | /events  | No            | Get all events                       |
-| GET    | /events/:id | No         | Get a single event by id             |
-| POST   | /events  | Yes           | Create a new event                   |
-| PATCH  | /events/:id | Yes         | Update an event by id                |
-| DELETE | /events/:id | Yes         | Delete an event by id                |
+| Method | Path                  | Auth Required | Description                          |
+| ------ | --------------------- | ------------- | ------------------------------------ |
+| GET    | /api/v1/events        | No            | Get all events                       |
+| GET    | /api/v1/events/:id    | No            | Get a single event by id             |
+| POST   | /api/v1/events        | Yes           | Create a new event                   |
+| PATCH  | /api/v1/events/:id    | Yes           | Update an event by id                |
+| DELETE | /api/v1/events/:id    | Yes           | Delete an event by id                |
 
 For protected routes, send the token in the `Authorization` header:
 
@@ -69,21 +69,21 @@ Authorization: Bearer <token>
 }
 ```
 
-### POST /events
+### POST /api/v1/events
 
 Validates `title`, `description`, `date`, and `image`.
 
 - `201`: `{ "message": "Event saved.", "event": { ... } }`
 - `422`: Validation error messages per field
 
-### PATCH /events/:id
+### PATCH /api/v1/events/:id
 
 Validates `title`, `description`, `date`, and `image`.
 
 - `200`: `{ "message": "Event updated.", "event": { ... } }`
 - `422`: Validation error messages per field
 
-### DELETE /events/:id
+### DELETE /api/v1/events/:id
 
 - `200`: `{ "message": "Event deleted." }`
 

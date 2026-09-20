@@ -1,8 +1,9 @@
 // INFO: This is a simplified version of the editEventDetails function
 
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
+import { EVENTS_API_URL } from "../api";
 
-const BASE_URL = import.meta.env.API_URL ?? 'http://localhost:8080/events/';
+const BASE_URL = EVENTS_API_URL;
 
 export async function editEventDetails({ request, params }: ActionFunctionArgs) {
     const { id } = params;

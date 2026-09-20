@@ -1,7 +1,7 @@
-export async function eventsLoader() {
-    const BASE_URL = import.meta.env.API_URL ?? 'http://localhost:8080/events/';
+import { EVENTS_API_URL } from "../api";
 
-    const response = await fetch(BASE_URL);
+export async function eventsLoader() {
+    const response = await fetch(EVENTS_API_URL);
 
     if (!response.ok) {
         let message = 'Failed to fetch events';

@@ -1,8 +1,9 @@
 // INFO: Add New EventType
 
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
+import { EVENTS_API_URL } from "../api";
 
-const BASE_URL = import.meta.env.VITE ?? 'http://localhost:8080/events/';
+const BASE_URL = EVENTS_API_URL;
 
 export async function addEvent({ request }: ActionFunctionArgs) {
     const formData = await request.formData();

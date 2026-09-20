@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EVENTS_API_URL } from "../utils/api";
 
 type EventType = {
     id: string;
@@ -12,7 +13,7 @@ const EventsPage = () => {
     const [events, setEvents] = useState<EventType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const BASE_URL = import.meta.env.API_URL ?? 'http://localhost:8080/events/';
+    const BASE_URL = EVENTS_API_URL;
 
     useEffect(() => {
         setIsLoading(true);
