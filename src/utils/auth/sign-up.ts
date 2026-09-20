@@ -1,8 +1,17 @@
 // INFO: Sign Up A New User
 
+import { redirect } from "react-router-dom";
 import { AUTH_API_URL } from "../api";
 
-export async function signUp(email: string, password: string) {
+export async function signUp({ request }: { request: Request }) {
+    const formData = await request.formData();
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
+        return { error: 'Please provide a valid email and password.' };
+    }
+
     const response = await fetch(`${AUTH_API_URL}/signup`, {
         method: 'POST',
         headers: {
@@ -12,8 +21,11 @@ export async function signUp(email: string, password: string) {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to sign up');
+        const errorData = await response.json().catch(() => null);
+        return {
+            error: errorData?.message || 'Failed to sign up. Please try again.'
+        };
     }
 
-    return response.json();
+    return redirect('/login');
 }

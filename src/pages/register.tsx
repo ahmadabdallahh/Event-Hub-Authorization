@@ -1,5 +1,5 @@
 import { Lock, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Form, Link, useActionData } from 'react-router-dom';
 
 const inputClass =
     'mt-1 block w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 pl-10 text-gray-100 placeholder:text-gray-500 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500';
@@ -7,6 +7,8 @@ const inputClass =
 const labelClass = 'mb-1 block text-sm font-medium text-gray-300';
 
 const RegisterPage = () => {
+    const actionData = useActionData() as { error?: string } | undefined;
+
     return (
         <div className="mx-auto flex min-h-[70dvh] w-full max-w-md flex-col justify-center py-12">
             <div className="animate-fade-up rounded-xl bg-gray-800 p-6 shadow-xl shadow-black/20 sm:p-8">
@@ -24,11 +26,18 @@ const RegisterPage = () => {
                     </p>
                 </div>
 
-                <form className="space-y-5">
+                {actionData?.error && (
+                    <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">
+                        {actionData.error}
+                    </div>
+                )}
+
+                <Form method="post">
                     <p>
                         <label htmlFor="email" className={labelClass}>
                             Email
                         </label>
+
                         <span className="relative block">
                             <Mail
                                 aria-hidden="true"
@@ -48,7 +57,7 @@ const RegisterPage = () => {
                         <label htmlFor="password" className={labelClass}>
                             Password
                         </label>
-                        <span className="relative block">
+                        <span className="relative block mb-5">
                             <Lock
                                 aria-hidden="true"
                                 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
@@ -62,13 +71,14 @@ const RegisterPage = () => {
                             />
                         </span>
                     </p>
+
                     <button
-                        type="button"
+                        type="submit"
                         className="w-full cursor-pointer rounded-md bg-primary-500 px-6 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-primary-400 active:scale-[0.98]"
                     >
                         Create account
                     </button>
-                </form>
+                </Form>
 
                 <div className="my-6 flex items-center gap-3 text-xs uppercase tracking-widest text-gray-500">
                     <span className="h-px flex-1 bg-gray-700" />

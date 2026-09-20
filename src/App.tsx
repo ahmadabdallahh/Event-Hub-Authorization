@@ -12,6 +12,7 @@ import Loading from "./components/Loading";
 import { editEventDetails } from "./utils/events functions/editEventDetails";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
+import { signUp } from "./utils/auth/sign-up";
 
 const EditEventPage = lazy(() => import("./pages/EditEventPage"));
 const EventDetailPage = lazy(() => import("./pages/EventDetailPage"));
@@ -70,7 +71,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/register",
-                element: <RegisterPage />
+                element: <RegisterPage />,
+                action: signUp
             }
         ],
     },

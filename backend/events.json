@@ -99,5 +99,11 @@
             "description": "WCAG 2.2 compliance, ARIA patterns, and building apps that work for everyone."
         }
     ],
-    "users": []
+    "users": [
+        {
+            "email": "duhoqov@mailinator.com",
+            "password": "$2a$12$F6ApmVzipDXgBzyX/eR0G.s466R8GBpsQtyscNUz4veB.YgwymqTK",
+            "id": "f2b73da6-6363-4aba-8ef4-8b52e09d2358"
+        }
+    ]
 }
