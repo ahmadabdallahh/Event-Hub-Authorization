@@ -1,6 +1,6 @@
 const express = require('express');
 const { add, get } = require('../data/user');
-const { createJSONToken, isValidPassword } = require('../util/auth');
+const { createJSONToken, isValidPassword, checkAuth } = require('../util/auth');
 const { isValidEmail, isValidText } = require('../util/validation');
 
 const router = express.Router();
@@ -83,6 +83,11 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
     res.clearCookie('token', { path: '/' });
     res.json({ message: 'Logged out.' });
+});
+
+// Session check for the frontend nav (reads the httpOnly cookie via checkAuth).
+router.get('/me', checkAuth, (req, res) => {
+    res.json({ email: req.token.email });
 });
 
 module.exports = router;

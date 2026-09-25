@@ -1,7 +1,7 @@
-import { EVENTS_API_URL } from "../api";
+import { EVENTS_API_URL, apiFetch } from "../api";
 
 export async function eventsLoader() {
-    const response = await fetch(EVENTS_API_URL);
+    const response = await apiFetch(EVENTS_API_URL);
 
     if (!response.ok) {
         let message = 'Failed to fetch events';

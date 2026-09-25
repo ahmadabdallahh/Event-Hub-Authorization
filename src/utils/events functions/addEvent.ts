@@ -1,7 +1,7 @@
 // INFO: Add New EventType
 
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
-import { EVENTS_API_URL } from "../api";
+import { EVENTS_API_URL, apiFetch } from "../api";
 
 const BASE_URL = EVENTS_API_URL;
 
@@ -12,7 +12,8 @@ export async function addEvent({ request }: ActionFunctionArgs) {
     const date = formData.get("date") as string;
     const image = formData.get("image") as string;
 
-    const response = await fetch(BASE_URL, {
+    // Cookie auth: apiFetch sends the httpOnly cookie and auto-logs-out on 401.
+    const response = await apiFetch(BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, description, date, image }),

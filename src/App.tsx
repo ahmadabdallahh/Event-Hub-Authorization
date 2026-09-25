@@ -14,6 +14,7 @@ import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import { signUp } from "./utils/auth/sign-up";
 import { signIn } from "./utils/auth/sign-in";
+import { logoutAction, sessionLoader } from "./utils/auth/session";
 
 const EditEventPage = lazy(() => import("./pages/EditEventPage"));
 const EventDetailPage = lazy(() => import("./pages/EventDetailPage"));
@@ -31,9 +32,11 @@ function lazyRoute(Component: React.LazyExoticComponent<() => React.JSX.Element>
 
 const router = createBrowserRouter([
     {
+        id: "root",
         path: "",
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+        loader: sessionLoader,
         children: [
             {
                 index: true,
@@ -75,6 +78,11 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage />,
                 action: signUp
+            },
+            {
+                // No element: the action clears the cookie and redirects to /login.
+                path: "/logout",
+                action: logoutAction
             }
         ],
     },

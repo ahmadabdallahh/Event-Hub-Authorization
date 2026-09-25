@@ -1,7 +1,7 @@
 // INFO: This is a simplified version of the editEventDetails function
 
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
-import { EVENTS_API_URL } from "../api";
+import { EVENTS_API_URL, apiFetch } from "../api";
 
 const BASE_URL = EVENTS_API_URL;
 
@@ -15,13 +15,11 @@ export async function editEventDetails({ request, params }: ActionFunctionArgs) 
     const formData = await request.formData();
     const updatedData = Object.fromEntries(formData);
 
-    const token = localStorage.getItem("token");
-
-    const response = await fetch(`${BASE_URL}${id}`, {
+    // Cookie auth: apiFetch sends the httpOnly cookie and auto-logs-out on 401.
+    const response = await apiFetch(`${BASE_URL}${id}`, {
         method: 'PATCH',
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedData)
     });

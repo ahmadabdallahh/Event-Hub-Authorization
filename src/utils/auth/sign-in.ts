@@ -21,6 +21,7 @@ export async function signIn({ request }: { request: Request }) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({ email, password }),
         });
 
@@ -29,12 +30,6 @@ export async function signIn({ request }: { request: Request }) {
             return {
                 error: errorData?.message || "Invalid email or password. Please try again.",
             };
-        }
-
-        const data = await response.json();
-
-        if (data?.token) {
-            localStorage.setItem("token", data.token);
         }
 
         return redirect('/events');

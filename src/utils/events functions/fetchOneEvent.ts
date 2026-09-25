@@ -1,7 +1,7 @@
 // INFO: This is a simplified version of the fetchOneEvent function
 
 import type { LoaderFunctionArgs } from "react-router-dom";
-import { EVENTS_API_URL } from "../api";
+import { EVENTS_API_URL, apiFetch } from "../api";
 
 export type EventType = {
     id: string;
@@ -20,7 +20,7 @@ export async function fetchOneEvent({ params }: LoaderFunctionArgs): Promise<Eve
         throw new Response("Event ID is required", { status: 400 });
     }
 
-    const response = await fetch(`${BASE_URL}${id}`);
+    const response = await apiFetch(`${BASE_URL}${id}`);
 
     if (!response.ok) {
         let message = 'Failed to fetch event';

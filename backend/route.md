@@ -9,6 +9,7 @@ Base URL: `http://localhost:8080/api/v1`
 | POST   | /api/v1/auth/signup | No            | Create a new user account (sets `token` httpOnly cookie) |
 | POST   | /api/v1/auth/login  | No            | Log in (sets `token` httpOnly cookie)    |
 | POST   | /api/v1/auth/logout | No            | Clear the `token` cookie                 |
+| GET    | /api/v1/auth/me     | Yes (cookie)  | Current session email (`{ email }`) / `401` when logged out |
 
 ### POST /api/v1/auth/signup
 

@@ -1,5 +1,5 @@
 import { Lock, Mail } from 'lucide-react';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, useActionData } from 'react-router-dom';
 
 const inputClass =
     'mt-1 block w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 pl-10 text-gray-100 placeholder:text-gray-500 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500';
@@ -7,6 +7,8 @@ const inputClass =
 const labelClass = 'mb-1 block text-sm font-medium text-gray-300';
 
 const LoginPage = () => {
+    const actionData = useActionData() as { error?: string } | undefined;
+
     return (
         <div className="mx-auto flex min-h-[70dvh] w-full max-w-md flex-col justify-center py-12">
             <div className="animate-fade-up rounded-xl bg-gray-800 p-6 shadow-xl shadow-black/20 sm:p-8">
@@ -25,6 +27,14 @@ const LoginPage = () => {
                 </div>
 
                 <Form method='post' className="space-y-5">
+                    {actionData?.error && (
+                        <div
+                            role="alert"
+                            className="rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300"
+                        >
+                            {actionData.error}
+                        </div>
+                    )}
                     <p>
                         <label htmlFor="email" className={labelClass}>
                             Email

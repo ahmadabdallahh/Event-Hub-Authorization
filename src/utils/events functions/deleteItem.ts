@@ -1,7 +1,7 @@
 // INFO: This is a simplified version of the fetchOneEvent function
 
 import { redirect, type LoaderFunctionArgs } from "react-router-dom";
-import { EVENTS_API_URL } from "../api";
+import { EVENTS_API_URL, apiFetch } from "../api";
 
 const BASE_URL = EVENTS_API_URL;
 
@@ -12,11 +12,10 @@ export async function deleteItemAction({ params }: LoaderFunctionArgs) {
         throw new Response("Event ID is required", { status: 400 });
     }
 
-    const token = localStorage.getItem("token");
-
-    const response = await fetch(`${BASE_URL}${id}`, {
+    // Cookie auth: apiFetch sends the httpOnly cookie and auto-logs-out on 401.
+    const response = await apiFetch(`${BASE_URL}${id}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+        headers: { "Content-Type": "application/json" }
     });
 
     if (!response.ok) {

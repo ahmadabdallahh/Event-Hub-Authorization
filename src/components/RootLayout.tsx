@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useRouteLoaderData } from 'react-router-dom';
+import type { SessionData } from '../utils/auth/session';
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
@@ -14,7 +15,7 @@ function RootLayout() {
         ? 'rounded-md bg-primary-500 px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-primary-400'
         : 'rounded-md px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-primary-300';
 
-    const token = localStorage.getItem("authToken");
+    const { isLoggedIn } = useRouteLoaderData("root") as SessionData;
 
     return (
         <div className="min-h-dvh bg-gray-900 text-gray-100">
@@ -47,15 +48,15 @@ function RootLayout() {
                         </li>
 
                         <li>
-                            {token ? (
-                                <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
-                                    {isLoginPage ? "Register" : "Sign in"}
-                                </Link>
-                            ) :
+                            {isLoggedIn ? (
                                 <Link to="/logout" className={authLinkClass}>
                                     Logout
                                 </Link>
-                            }
+                            ) : (
+                                <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
+                                    {isLoginPage ? "Register" : "Sign in"}
+                                </Link>
+                            )}
                         </li>
 
                     </ul>
