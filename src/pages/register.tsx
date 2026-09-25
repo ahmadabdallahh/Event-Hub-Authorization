@@ -1,13 +1,17 @@
 import { Lock, Mail } from 'lucide-react';
 import { Form, Link, useActionData } from 'react-router-dom';
+import type { SignUpActionData } from '../utils/auth/sign-up';
 
 const inputClass =
     'mt-1 block w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 pl-10 text-gray-100 placeholder:text-gray-500 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500';
 
+const fieldErrorClass = 'mt-1 text-sm text-red-400';
+
 const labelClass = 'mb-1 block text-sm font-medium text-gray-300';
 
 const RegisterPage = () => {
-    const actionData = useActionData() as { error?: string } | undefined;
+    const actionData = useActionData() as SignUpActionData | undefined;
+    const fieldErrors = actionData?.errors ?? {};
 
     return (
         <div className="mx-auto flex min-h-[70dvh] w-full max-w-md flex-col justify-center py-12">
@@ -27,12 +31,15 @@ const RegisterPage = () => {
                 </div>
 
                 {actionData?.error && (
-                    <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">
+                    <div
+                        role="alert"
+                        className="mb-5 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300"
+                    >
                         {actionData.error}
                     </div>
                 )}
 
-                <Form method="post">
+                <Form method="post" className="space-y-5">
                     <p>
                         <label htmlFor="email" className={labelClass}>
                             Email
@@ -51,13 +58,18 @@ const RegisterPage = () => {
                                 className={inputClass}
                             />
                         </span>
+                        {fieldErrors.email && (
+                            <span role="alert" className={fieldErrorClass}>
+                                {fieldErrors.email}
+                            </span>
+                        )}
                     </p>
 
                     <p>
                         <label htmlFor="password" className={labelClass}>
                             Password
                         </label>
-                        <span className="relative block mb-5">
+                        <span className="relative block">
                             <Lock
                                 aria-hidden="true"
                                 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
@@ -70,6 +82,11 @@ const RegisterPage = () => {
                                 className={inputClass}
                             />
                         </span>
+                        {fieldErrors.password && (
+                            <span role="alert" className={fieldErrorClass}>
+                                {fieldErrors.password}
+                            </span>
+                        )}
                     </p>
 
                     <button
