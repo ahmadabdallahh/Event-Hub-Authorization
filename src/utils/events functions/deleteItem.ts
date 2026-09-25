@@ -12,7 +12,12 @@ export async function deleteItemAction({ params }: LoaderFunctionArgs) {
         throw new Response("Event ID is required", { status: 400 });
     }
 
-    const response = await fetch(`${BASE_URL}${id}`, { method: "DELETE", headers: { "Content-Type": "application/json" } });
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${BASE_URL}${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    });
 
     if (!response.ok) {
         let message = 'Failed to delete event';

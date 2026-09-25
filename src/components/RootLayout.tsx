@@ -14,6 +14,8 @@ function RootLayout() {
         ? 'rounded-md bg-primary-500 px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-primary-400'
         : 'rounded-md px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-primary-300';
 
+    const token = localStorage.getItem("authToken");
+
     return (
         <div className="min-h-dvh bg-gray-900 text-gray-100">
             <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-900/90 backdrop-blur">
@@ -45,9 +47,15 @@ function RootLayout() {
                         </li>
 
                         <li>
-                            <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
-                                {isLoginPage ? "Register" : "Sign in"}
-                            </Link>
+                            {token ? (
+                                <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
+                                    {isLoginPage ? "Register" : "Sign in"}
+                                </Link>
+                            ) :
+                                <Link to="/logout" className={authLinkClass}>
+                                    Logout
+                                </Link>
+                            }
                         </li>
 
                     </ul>

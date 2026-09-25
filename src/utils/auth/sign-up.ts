@@ -43,5 +43,5 @@ export async function signUp({ request }: { request: Request }) {
     const { token } = await response.json();
     localStorage.setItem("token", token);
 
-    return redirect("/login");
+    return redirect("/");
 }

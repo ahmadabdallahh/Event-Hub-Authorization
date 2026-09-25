@@ -15,7 +15,16 @@ export async function editEventDetails({ request, params }: ActionFunctionArgs) 
     const formData = await request.formData();
     const updatedData = Object.fromEntries(formData);
 
-    const response = await fetch(`${BASE_URL}${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updatedData) });
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${BASE_URL}${id}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedData)
+    });
 
     if (!response.ok) {
         let message = 'Failed to update event';

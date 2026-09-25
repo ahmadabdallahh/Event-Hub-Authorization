@@ -1,5 +1,5 @@
 import { Lock, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 
 const inputClass =
     'mt-1 block w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 pl-10 text-gray-100 placeholder:text-gray-500 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500';
@@ -24,7 +24,7 @@ const LoginPage = () => {
                     </p>
                 </div>
 
-                <form className="space-y-5">
+                <Form method='post' className="space-y-5">
                     <p>
                         <label htmlFor="email" className={labelClass}>
                             Email
@@ -82,12 +82,11 @@ const LoginPage = () => {
                     </div>
 
                     <button
-                        type="button"
                         className="w-full cursor-pointer rounded-md bg-primary-500 px-6 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-primary-400 active:scale-[0.98]"
                     >
                         Sign in
                     </button>
-                </form>
+                </Form>
 
                 <div className="my-6 flex items-center gap-3 text-xs uppercase tracking-widest text-gray-500">
                     <span className="h-px flex-1 bg-gray-700" />
