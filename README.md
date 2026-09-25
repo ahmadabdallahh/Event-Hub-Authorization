@@ -217,7 +217,7 @@ sequenceDiagram
     U->>F: Submit email + password (Form POST /login)
     F->>B: POST /api/v1/auth/login {email, password} (credentials: include)
     B->>B: bcrypt compare + sign JWT (1h)
-    B->>C: Set-Cookie: token=JWT; HttpOnly; SameSite=Lax; Max-Age=3600
+    B->>C: "Set-Cookie: token=JWT, HttpOnly, SameSite=Lax, Max-Age=3600"
     B->>F: 200 { token } (body ignored by frontend)
     F->>U: redirect /events
     Note over U,C: JWT is in the cookie jar only — JS can't read it
