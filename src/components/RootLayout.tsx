@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation, useRouteLoaderData } from 'react-router-dom';
+import { Form, Link, NavLink, Outlet, useLocation, useRouteLoaderData } from 'react-router-dom';
 import type { SessionData } from '../utils/auth/session';
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -47,11 +47,23 @@ function RootLayout() {
                             </NavLink>
                         </li>
 
+                        {isLoggedIn && (
+                            <li>
+                                <NavLink to="/dashboard" end className={linkClass}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                        )}
+
                         <li>
                             {isLoggedIn ? (
-                                <Link to="/logout" className={authLinkClass}>
-                                    Logout
-                                </Link>
+                                // Must be a POST form: a plain Link issues a GET,
+                                // and GET navigations never run the /logout action.
+                                <Form method="post" action="/logout">
+                                    <button type="submit" className={`${authLinkClass} cursor-pointer`}>
+                                        Logout
+                                    </button>
+                                </Form>
                             ) : (
                                 <Link to={isLoginPage ? "/register" : "/login"} className={authLinkClass}>
                                     {isLoginPage ? "Register" : "Sign in"}

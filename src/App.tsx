@@ -12,6 +12,7 @@ import Loading from "./components/Loading";
 import { editEventDetails } from "./utils/events functions/editEventDetails";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
+import DashboardPage, { dashboardLoader } from "./pages/dashboard";
 import { signUp } from "./utils/auth/sign-up";
 import { signIn } from "./utils/auth/sign-in";
 import { logoutAction, sessionLoader } from "./utils/auth/session";
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage />,
                 action: signUp
+            },
+            {
+                path: "/dashboard",
+                element: <DashboardPage />,
+                loader: dashboardLoader
             },
             {
                 // No element: the action clears the cookie and redirects to /login.
