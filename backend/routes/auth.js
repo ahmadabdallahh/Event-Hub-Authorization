@@ -5,6 +5,19 @@ const { isValidEmail, isValidText } = require('../util/validation');
 
 const router = express.Router();
 
+// httpOnly session cookie: not readable via document.cookie / JS (XSS-safe).
+// `token` is still returned in the JSON body for backward compatibility
+// with clients that send `Authorization: Bearer <token>`.
+function setAuthCookie(res, token) {
+  res.cookie('token', token, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 1000, // 1h, matches createJSONToken expiresIn
+    path: '/',
+  });
+}
+
 router.post('/signup', async (req, res, next) => {
     const data = req.body;
     let errors = {};
@@ -34,6 +47,7 @@ router.post('/signup', async (req, res, next) => {
     try {
         const createdUser = await add(data);
         const authToken = createJSONToken(createdUser.email);
+        setAuthCookie(res, authToken);
         res
             .status(201)
             .json({ message: 'User created.', user: createdUser, token: authToken });
@@ -62,7 +76,13 @@ router.post('/login', async (req, res) => {
     }
 
     const token = createJSONToken(email);
+    setAuthCookie(res, token);
     res.json({ token });
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', { path: '/' });
+    res.json({ message: 'Logged out.' });
 });
 
 module.exports = router;

@@ -20,17 +20,22 @@ function checkAuthMiddleware(req, res, next) {
   if (req.method === 'OPTIONS') {
     return next();
   }
-  if (!req.headers.authorization) {
-    console.log('NOT AUTH. AUTH HEADER MISSING.');
-    return next(new NotAuthError('Not authenticated.'));
-  }
-  const authFragments = req.headers.authorization.split(' ');
+  // Prefer the httpOnly cookie; fall back to `Authorization: Bearer <token>`
+  // so clients that still send the header keep working.
+  let authToken = req.cookies && req.cookies.token;
+  if (!authToken) {
+    if (!req.headers.authorization) {
+      console.log('NOT AUTH. AUTH HEADER MISSING.');
+      return next(new NotAuthError('Not authenticated.'));
+    }
+    const authFragments = req.headers.authorization.split(' ');
 
-  if (authFragments.length !== 2) {
-    console.log('NOT AUTH. AUTH HEADER INVALID.');
-    return next(new NotAuthError('Not authenticated.'));
+    if (authFragments.length !== 2) {
+      console.log('NOT AUTH. AUTH HEADER INVALID.');
+      return next(new NotAuthError('Not authenticated.'));
+    }
+    authToken = authFragments[1];
   }
-  const authToken = authFragments[1];
   try {
     const validatedToken = validateJSONToken(authToken);
     req.token = validatedToken;
