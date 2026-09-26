@@ -1,0 +1,18 @@
+# Render Blueprint — EventHub backend (Express API).
+# Deploy via dashboard: New → Blueprint → connect repo, or
+# New → Web Service with Root Directory = backend.
+services:
+  - type: web
+    name: eventhub-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: node app.js
+    healthCheckPath: /api/v1/events
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
