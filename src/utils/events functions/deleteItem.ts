@@ -33,3 +33,4 @@ export async function deleteItemAction({ params }: LoaderFunctionArgs) {
 
     return redirect("/events");
 }
+// 30702251803632

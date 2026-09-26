@@ -12,14 +12,14 @@ JavaScript or `localStorage`.
 
 ## ✨ Features
 
-| Area | What you get |
-| ---- | ------------ |
-| Events | Public list + detail pages, search-free browse with featured cards |
-| Auth | Register with per-field errors, login with error banner, logout |
+| Area                     | What you get                                                                       |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| Events                   | Public list + detail pages, search-free browse with featured cards                 |
+| Auth                     | Register with per-field errors, login with error banner, logout                    |
 | Dashboard (`/dashboard`) | Signed-in email, total / upcoming / past event counts, latest event, quick actions |
-| Session handling | httpOnly `token` cookie, `GET /auth/me` nav state, **auto-logout on 401** |
-| Validation | Backend 422 per-field errors surfaced under the right input |
-| UX | Dark theme (Tailwind v4), Lucide icons, lazy-loaded routes, smart error page |
+| Session handling         | httpOnly `token` cookie, `GET /auth/me` nav state, **auto-logout on 401**          |
+| Validation               | Backend 422 per-field errors surfaced under the right input                        |
+| UX                       | Dark theme (Tailwind v4), Lucide icons, lazy-loaded routes, smart error page       |
 
 ---
 
@@ -27,26 +27,26 @@ JavaScript or `localStorage`.
 
 **Frontend**
 
-| Tool | Version | Role |
-| ---- | ------- | ---- |
-| React + React DOM | 19 | UI |
-| react-router-dom | 7 | Data router (loaders + actions) |
-| TypeScript | 6 | Type safety (`tsc -b`) |
-| Vite | 8 (+ `@vitejs/plugin-react`) | Dev server + build |
-| Tailwind CSS | 4 (via `@tailwindcss/vite`) | Styling |
-| lucide-react | 1.45 | Icons |
-| oxlint | 1.81 | Linting |
+| Tool              | Version                      | Role                            |
+| ----------------- | ---------------------------- | ------------------------------- |
+| React + React DOM | 19                           | UI                              |
+| react-router-dom  | 7                            | Data router (loaders + actions) |
+| TypeScript        | 6                            | Type safety (`tsc -b`)          |
+| Vite              | 8 (+ `@vitejs/plugin-react`) | Dev server + build              |
+| Tailwind CSS      | 4 (via `@tailwindcss/vite`)  | Styling                         |
+| lucide-react      | 1.45                         | Icons                           |
+| oxlint            | 1.81                         | Linting                         |
 
 **Backend** (`backend/`, plain Node + Express)
 
-| Tool | Role |
-| ---- | ---- |
-| express 4 | REST API under `/api/v1` |
-| jsonwebtoken 8 | JWTs (`expiresIn: 1h`) |
-| bcryptjs 2 | Password hashing |
+| Tool            | Role                              |
+| --------------- | --------------------------------- |
+| express 4       | REST API under `/api/v1`          |
+| jsonwebtoken 8  | JWTs (`expiresIn: 1h`)            |
+| bcryptjs 2      | Password hashing                  |
 | cookie-parser 1 | Reads the httpOnly `token` cookie |
-| body-parser 1 | JSON bodies |
-| uuid 9 | Event/user ids |
+| body-parser 1   | JSON bodies                       |
+| uuid 9          | Event/user ids                    |
 
 **Storage:** file-based JSON — `backend/events.json` holds both `users` and `events`
 (no database to install).
@@ -117,8 +117,8 @@ npm run dev
 
 ### 3. Environment
 
-| File | Variable | Default | Purpose |
-| ---- | -------- | ------- | ------- |
+| File   | Variable       | Default                        | Purpose                                                 |
+| ------ | -------------- | ------------------------------ | ------------------------------------------------------- |
 | `.env` | `VITE_API_URL` | `http://localhost:8080/api/v1` | Backend base URL (trailing slashes trimmed in `api.ts`) |
 
 > ⚠️ **Port 8080 already in use?** A stale `node app.js` may be squatting on it
@@ -132,12 +132,12 @@ npm run dev
 
 ### Scripts
 
-| Command | Where | What |
-| ------- | ----- | ---- |
-| `npm run dev` | root / `backend/` | Vite dev server / `node app.js` |
-| `npm run build` | root | `tsc -b && vite build` |
-| `npm run lint` | root | `oxlint` |
-| `npm run preview` | root | Preview the production build |
+| Command           | Where             | What                            |
+| ----------------- | ----------------- | ------------------------------- |
+| `npm run dev`     | root / `backend/` | Vite dev server / `node app.js` |
+| `npm run build`   | root              | `tsc -b && vite build`          |
+| `npm run lint`    | root              | `oxlint`                        |
+| `npm run preview` | root              | Preview the production build    |
 
 ---
 
@@ -166,17 +166,17 @@ Full endpoint details live in [`backend/route.md`](backend/route.md).
 
 ## 🗺️ Frontend Routes
 
-| Path | Element | Loader | Action | Notes |
-| ---- | ------- | ------ | ------ | ----- |
-| `/` | HomePage | `sessionLoader` (root) | — | Landing |
-| `/events` | EventsPageLoader | `eventsLoader` | — | Public list |
-| `/events/new` | NewEventPage | — | `addEvent` | 401 → auto-logout |
-| `/events/:id` | EventDetailPage | `fetchOneEvent` | `deleteItemAction` | Delete form posts here |
-| `/events/:id/edit` | EditEventPage | `fetchOneEvent` | `editEventDetails` | |
-| `/login` | LoginPage | — | `signIn` | Redirects to `/events` |
-| `/register` | RegisterPage | — | `signUp` | Per-field errors, redirects to `/login` |
-| `/dashboard` | DashboardPage | `dashboardLoader` | — | Protected (redirects to `/login`) |
-| `/logout` | — (action only) | — | `logoutAction` | POST-only, no element |
+| Path               | Element          | Loader                 | Action             | Notes                                   |
+| ------------------ | ---------------- | ---------------------- | ------------------ | --------------------------------------- |
+| `/`                | HomePage         | `sessionLoader` (root) | —                  | Landing                                 |
+| `/events`          | EventsPageLoader | `eventsLoader`         | —                  | Public list                             |
+| `/events/new`      | NewEventPage     | —                      | `addEvent`         | 401 → auto-logout                       |
+| `/events/:id`      | EventDetailPage  | `fetchOneEvent`        | `deleteItemAction` | Delete form posts here                  |
+| `/events/:id/edit` | EditEventPage    | `fetchOneEvent`        | `editEventDetails` |                                         |
+| `/login`           | LoginPage        | —                      | `signIn`           | Redirects to `/events`                  |
+| `/register`        | RegisterPage     | —                      | `signUp`           | Per-field errors, redirects to `/login` |
+| `/dashboard`       | DashboardPage    | `dashboardLoader`      | —                  | Protected (redirects to `/login`)       |
+| `/logout`          | — (action only)  | —                      | `logoutAction`     | POST-only, no element                   |
 
 ---
 
@@ -261,33 +261,6 @@ flowchart LR
     ER --> H
     H --> OK["JSON response"]
     H -- "throw / next(err)" --> EH["error middleware<br/>{ message } + status"]
-```
-
----
-
-## 🧪 Quick Smoke Test (backend)
-
-```bash
-cd backend && node app.js & sleep 2
-
-# signup sets the cookie
-curl -i -X POST http://localhost:8080/api/v1/auth/signup \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"me@example.com","password":"secret123"}'   # → 201 + Set-Cookie: token=...; HttpOnly
-
-# session check with the cookie (login first to fill the jar if needed)
-curl -c jar.txt -X POST http://localhost:8080/api/v1/auth/login \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"me@example.com","password":"secret123"}'
-curl -b jar.txt http://localhost:8080/api/v1/auth/me        # → {"email":"me@example.com"}
-
-# protected write with cookie only (no Authorization header)
-curl -b jar.txt -X POST http://localhost:8080/api/v1/events \
-  -H 'Content-Type: application/json' \
-  -d '{"title":"Demo","description":"smoke test","date":"2026-10-01","image":"https://example.com/i.png"}'  # → 201
-
-# logged out → 401
-curl http://localhost:8080/api/v1/auth/me                   # → 401
 ```
 
 ---

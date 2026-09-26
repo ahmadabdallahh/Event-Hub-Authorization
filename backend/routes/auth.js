@@ -9,10 +9,13 @@ const router = express.Router();
 // `token` is still returned in the JSON body for backward compatibility
 // with clients that send `Authorization: Bearer <token>`.
 function setAuthCookie(res, token) {
+  // Production serves cross-site (Vercel frontend → Fly backend), which
+  // requires SameSite=None + Secure. Local dev stays Lax (no HTTPS).
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('token', token, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: isProd ? 'none' : 'lax',
+    secure: isProd,
     maxAge: 60 * 60 * 1000, // 1h, matches createJSONToken expiresIn
     path: '/',
   });

@@ -2,7 +2,8 @@ const { sign, verify } = require('jsonwebtoken');
 const { compare } = require('bcryptjs');
 const { NotAuthError } = require('./errors');
 
-const KEY = 'supersecret';
+// In production set JWT_SECRET via env (Fly secret). Dev fallback kept local-only.
+const KEY = process.env.JWT_SECRET || 'supersecret';
 
 function createJSONToken(email) {
   return sign({ email }, KEY, { expiresIn: '1h' });

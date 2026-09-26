@@ -15,6 +15,11 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  // Answer CORS preflights here (Express has no OPTIONS handler otherwise,
+  // and browsers block credentialed cross-site POSTs without a 2xx).
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
   next();
 });
 
@@ -28,4 +33,7 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-app.listen(8080);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`API listening on :${port}`);
+});
