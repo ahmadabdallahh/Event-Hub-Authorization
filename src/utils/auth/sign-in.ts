@@ -32,7 +32,7 @@ export async function signIn({ request }: { request: Request }) {
             };
         }
 
-        return redirect('/events');
+        return redirect('/dashboard');
 
     } catch (error) {
         return {

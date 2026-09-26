@@ -17,6 +17,7 @@ export async function dashboardLoader(): Promise<DashboardData> {
     if (!meResponse.ok) {
         throw redirect('/login');
     }
+
     const { email } = (await meResponse.json()) as { email: string };
 
     const eventsResponse = await apiFetch(EVENTS_API_URL);

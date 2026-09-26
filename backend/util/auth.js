@@ -13,6 +13,20 @@ function validateJSONToken(token) {
   return verify(token, KEY);
 }
 
+// Short-lived token that authorizes ONE password reset. Carries a
+// purpose claim so it can never be mistaken for a session token.
+function createPasswordResetToken(email) {
+  return sign({ email, purpose: 'password-reset' }, KEY, { expiresIn: '15m' });
+}
+
+function validatePasswordResetToken(token) {
+  const payload = verify(token, KEY);
+  if (!payload || payload.purpose !== 'password-reset') {
+    throw new Error('Invalid reset token.');
+  }
+  return payload;
+}
+
 function isValidPassword(password, storedPassword) {
   return compare(password, storedPassword);
 }
@@ -39,6 +53,11 @@ function checkAuthMiddleware(req, res, next) {
   }
   try {
     const validatedToken = validateJSONToken(authToken);
+    // Reset tokens are not session tokens — refuse them here.
+    if (validatedToken.purpose) {
+      console.log('NOT AUTH. NON-SESSION TOKEN.');
+      return next(new NotAuthError('Not authenticated.'));
+    }
     req.token = validatedToken;
   } catch (error) {
     console.log('NOT AUTH. TOKEN INVALID.');
@@ -49,5 +68,7 @@ function checkAuthMiddleware(req, res, next) {
 
 exports.createJSONToken = createJSONToken;
 exports.validateJSONToken = validateJSONToken;
+exports.createPasswordResetToken = createPasswordResetToken;
+exports.validatePasswordResetToken = validatePasswordResetToken;
 exports.isValidPassword = isValidPassword;
 exports.checkAuth = checkAuthMiddleware;

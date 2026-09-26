@@ -30,5 +30,16 @@ async function get(email) {
   return user;
 }
 
+async function updatePassword(email, newPassword) {
+  const storedData = await readData();
+  const user = (storedData.users || []).find((u) => u.email === email);
+  if (!user) {
+    throw new NotFoundError('Could not find user for email ' + email);
+  }
+  user.password = await hash(newPassword, 12);
+  await writeData(storedData);
+}
+
 exports.add = add;
 exports.get = get;
+exports.updatePassword = updatePassword;

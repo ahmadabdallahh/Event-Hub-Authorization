@@ -10,6 +10,9 @@ Base URL: `http://localhost:8080/api/v1`
 | POST   | /api/v1/auth/login  | No            | Log in (sets `token` httpOnly cookie)    |
 | POST   | /api/v1/auth/logout | No            | Clear the `token` cookie                 |
 | GET    | /api/v1/auth/me     | Yes (cookie)  | Current session email (`{ email }`) / `401` when logged out |
+| POST   | /api/v1/auth/forgot-password | No | Request a 6-digit reset OTP by email (always `200`) |
+| POST   | /api/v1/auth/verify-otp | No         | Verify OTP, receive a `resetToken` (15 min) |
+| POST   | /api/v1/auth/reset-password | No     | Set a new password with the `resetToken` |
 
 ### POST /api/v1/auth/signup
 
@@ -49,6 +52,37 @@ Responses:
 Clears the session cookie.
 
 - `200`: `{ "message": "Logged out." }`
+
+### POST /api/v1/auth/forgot-password
+
+Sends a 6-digit OTP to the account email via Brevo (10-minute life,
+5 attempts, 60s resend cooldown). Always returns `200` with the same
+message so callers cannot probe which emails are registered.
+
+Request body: `{ "email": "user@example.com" }`
+
+- `200`: `{ "message": "If an account with that email exists, a reset code has been sent." }`
+- `422`: invalid email format
+
+### POST /api/v1/auth/verify-otp
+
+Burns the OTP (single-use) and returns a `resetToken` JWT (15 min,
+`purpose: "password-reset"`) that authorizes the password change.
+
+Request body: `{ "email": "user@example.com", "otp": "482913" }`
+
+- `200`: `{ "message": "Code verified.", "resetToken": "<jwt>" }`
+- `410`: code expired — request a new one
+- `422`: invalid code (`{ attemptsLeft }` included) or code locked after 5 attempts
+
+### POST /api/v1/auth/reset-password
+
+Request body: `{ "resetToken": "<jwt>", "newPassword": "secret123" }`
+
+- `200`: `{ "message": "Password has been reset. You can now log in." }`
+- `401`: invalid or expired `resetToken`
+- `422`: new password shorter than 6 characters
+- `404`: account no longer exists
 
 ## Event Routes (`/api/v1/events`)
 
